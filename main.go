@@ -14,7 +14,7 @@
 
 package main
 
-import "openHouseMap/cmd"
+import "bannerGenerator/cmd"
 
 // Variables to identify the build
 var (
