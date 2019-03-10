@@ -33,8 +33,14 @@ build_all:
 install:
 	go install ${LDFLAGS}
 
+dependencies:
+	go get
+
 # Remove only what we've created
 clean:
 	find ${ROOT_DIR} -name '${BINARY}[-?][a-zA-Z0-9]*[-?][a-zA-Z0-9]*' -delete
 
 .PHONY: check clean install build_all all
+
+test: build
+	go test
