@@ -1,0 +1,13 @@
+language: go
+sudo: false
+go:
+- 1.x
+
+before_install:
+  # gox simplifies building for multiple architectures
+  - go get github.com/mitchellh/gox
+  - go get github.com/inconshreveable/mousetrap
+
+script:
+  - go get
+  - gox -os="linux darwin windows" -arch="amd64" -output="./build/openHouseMap.{{.OS}}.{{.Arch}}" -ldflags "-X main.Rev=`git rev-parse --short HEAD`" -verbose ./...
