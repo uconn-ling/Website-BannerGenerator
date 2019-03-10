@@ -4,10 +4,22 @@ go:
 - 1.x
 
 before_install:
-  # gox simplifies building for multiple architectures
   - go get github.com/mitchellh/gox
   - go get github.com/inconshreveable/mousetrap
 
 script:
   - go get
   - gox -os="linux darwin windows" -arch="amd64" -output="./build/bannerGenerator.{{.OS}}.{{.Arch}}" -ldflags "-X main.Rev=`git rev-parse --short HEAD`" -verbose ./...
+
+deploy:
+  provider: releases
+  api_key:
+    secure: ERHAYbU+/jbhvBS+Jlwe2eEMKBCV/iFa43qqKKjOkHb7+yVO7iWx6EpNooEvfOsqmF4XsKaogNfgRyk7tiUiE1g7Wg6/OKTaCK0MlioLf87sOSc3uTUZZJQa5f0rx7gxWfgLpwxx9U5iY2dV5tl6V40cYal6kedSJ4DumZnLuJ0qMTP7txYQT16MmX7WNd0l1WYg6Y1ThAJ6KfZrbSBrk9r6+pxdLAkNwmcWljwXV9kirie0qUGn40FUAC9HDfK/AIOu1xmt2suwyaCbqeEU5OOvPc6xOMJX0FXMy+TL2BSHcTKT7769gYV0hZlWjx7M0X+7u6MAn3ZlW/3PRNKKawY99pmlVDOLo6yY8iZCTxBb/DDbDl7qUqWsttSXOlFkcqModA9oGlPpM0wXxrUQt90UxB9OMK8YazJcmoiQNHRwiB1x8S4xgV6cg/om5UlOkPvRkuoSLvSsAtFC3Op7nWTlfp6GHVmW8ReMo3PJgP1ZCg4zFzk2F7ESZZeLxHkHAQEoh+7PzZE9ZeghXtEXOB9+XTzun28zAsdK2FzbZx1gdFQmJELQcmVs3kMVZEqjnhOYtSSR9ELRaaDM6gypQ22whJ52VW4cifrBrmmmaOO4EU1rGNaFXMjOYvGKb+DTf3brtqJZ+5Ma11bW4gkx51LqMQoiY1S/5oHAErGxM94=
+  file:
+    - 'build/bannerGenerator.linux.amd64'
+    - 'build/bannerGenerator.darwin.amd64'
+    - 'build/bannerGenerator.windows.amd64.exe'
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: uconn-ling/openHouseMap
