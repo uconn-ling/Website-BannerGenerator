@@ -14,7 +14,7 @@
 
 package main
 
-import "bannerGenerator/cmd"
+import "github.com/uconn-ling/bannerGenerator/cmd"
 
 // Variables to identify the build
 var (
